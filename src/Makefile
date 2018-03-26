@@ -7,7 +7,8 @@ LIBCLIB=~/playground/stm32/arm-toolchain/arm-none-eabi/newlib/lib
 PROJ_NAME=fm
 
 # Where the STM firmware files are located
-STM_COMMON=..
+#STM_COMMON=..
+STM_COMMON=/home/arun/build/stm32_discovery_arm_gcc/STM32F4-Discovery_FW_V1.1.0
 
 CC=arm-none-eabi-gcc
 OBJCOPY=arm-none-eabi-objcopy
@@ -30,6 +31,8 @@ CFLAGS += -I$(STM_COMMON)/Libraries/STM32_USB_OTG_Driver/inc/
 CFLAGS += #-DUSE_USB_OTG_FS #-DMEDIA_USB_KEY
 CFLAGS += --specs=nosys.specs 
 CFLAGS += -DNO_LIBSNDFILE 
+
+LDFLAGS = -L/home/arun/build/Soundpipe
 
 
 STM_START = $(STM_COMMON)/Libraries/CMSIS/ST/STM32F4xx/Source/Templates/TrueSTUDIO/startup_stm32f4xx.s 
@@ -54,7 +57,8 @@ all: proj
 proj: $(PROJ_NAME).elf
 
 $(PROJ_NAME).elf: $(OBJS)
-	$(CC) -L$(LIBCLIB) -L. $(CFLAGS) $(OBJS) $(STM_START) -lsoundpipe -lm -o $@ 
+	#$(CC) -L$(LIBCLIB) -L. $(CFLAGS) $(OBJS) $(STM_START) -lsoundpipe -lm -o $@ 
+	$(CC) -L$(LIBCLIB) -L. $(CFLAGS) $(OBJS) $(STM_START) $(LDFLAGS) -lsoundpipe -lm -o $@ 
 	$(OBJCOPY) -O ihex $(PROJ_NAME).elf $(PROJ_NAME).hex
 	$(OBJCOPY) -O binary $(PROJ_NAME).elf $(PROJ_NAME).bin
 
