@@ -11,6 +11,7 @@ void adc_configure(){
  RCC_AHB1PeriphClockCmd(RCC_AHB1ENR_GPIOCEN,ENABLE);//Clock for the ADC port!! Do not forget about this one ;)
  //Analog pin configuration
  GPIO_initStructre.GPIO_Pin = GPIO_Pin_0;//The channel 10 is connected to PC0
+ //GPIO_initStructre.GPIO_Pin = GPIO_Pin_1;//The channel 11 is connected to PC1
  GPIO_initStructre.GPIO_Mode = GPIO_Mode_AN; //The PC0 pin is configured in analog mode
  GPIO_initStructre.GPIO_PuPd = GPIO_PuPd_NOPULL; //We don't need any pull up or pull down
  GPIO_Init(GPIOC,&GPIO_initStructre);//Affecting the port with the initialization structure configuration
@@ -27,6 +28,7 @@ void adc_configure(){
  //Enable ADC conversion
  ADC_Cmd(ADC1,ENABLE);
  //Select the channel to be read from
+ //ADC_RegularChannelConfig(ADC1,ADC_Channel_11,1,ADC_SampleTime_144Cycles); //For reading from PC1
  ADC_RegularChannelConfig(ADC1,ADC_Channel_10,1,ADC_SampleTime_144Cycles);
 }
 
