@@ -50,7 +50,7 @@ void WavePlayBack(uint32_t AudioFreq)
     sp_osc_create(&osc);
 
     sp_osc_init(sp, osc, ft, 0);
-    osc->freq = 500;
+    osc->freq = 440;
     osc->amp = 0.8f;
     uint32_t i;
 
@@ -130,22 +130,24 @@ int WavePlayerInit(uint32_t AudioFreq)
 uint32_t compute_buffer(int16_t *pbuf, int bufsize) 
 {
     int i, o;
-    SPFLOAT fm = 0, lfo = 0;
+    //SPFLOAT fm = 0, lfo = 0;
     SPFLOAT tmp = 0;
     SPFLOAT r0, r1;
     for(i = 0; i < bufsize / 2; i+=2) {
         //sp_osc_compute(sp, osc, NULL, &lfo);
-        fm = 0;
+        //fm = 0;
         tmp = 0;
         //fosc->indx = ((1.0 + lfo) * 0.5) * 6;
         //sp_fosc_compute(sp, fosc, NULL, &tmp);
         sp_osc_compute(sp, osc, NULL, &tmp);
         //fm += tmp;
-        sp_revsc_compute(sp, revsc, &fm, &fm, &r0, &r1);
+        //sp_revsc_compute(sp, revsc, &tmp, &tmp, &r0, &r1);
         //pbuf[i] = (fm * 0.8 + r0 * 0.1) * 32767;
         //pbuf[i + 1] = (fm * 0.8  + r1 * 0.1) * 32767;
-        pbuf[i] = tmp * 62767;
-        pbuf[i+1] = tmp * 62767;
+        //pbuf[i] = (tmp * 0.8 + r0 * 0.1) * 22767;
+        //pbuf[i+1] = (tmp * 0.8 + r1 * 0.1) * 22767;
+        pbuf[i] = tmp * 32767;
+        pbuf[i+1] = tmp * 32767;
     }
     return 0;
 }
