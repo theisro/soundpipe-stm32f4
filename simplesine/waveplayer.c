@@ -146,11 +146,11 @@ uint32_t compute_buffer(int16_t *pbuf, int bufsize)
         //fosc->indx = ((1.0 + lfo) * 0.5) * 6;
         sp_fosc_compute(sp, fosc, NULL, &tmp);
         //fm += tmp;
-        sp_revsc_compute(sp, revsc, &fm, &fm,  &r0, &r1);
-        //pbuf[i] = (fm * 0.8 + r0 * 0.1) * 32767;
-        //pbuf[i + 1] = (fm * 0.8  + r1 * 0.1) * 32767;
-        pbuf[i] = tmp * 42767;
-        pbuf[i+1] = tmp * 42767;
+        //sp_revsc_compute(sp, revsc, &tmp, &tmp,  &r0, &r1);
+        //pbuf[i] = (tmp * 0.8 + r0 * 0.1) * 32767;
+        //pbuf[i + 1] = (tmp * 0.8  + r1 * 0.1) * 32767;
+        pbuf[i] = tmp * 32767;
+        pbuf[i+1] = tmp * 32767;
     }
     return 0;
 }
