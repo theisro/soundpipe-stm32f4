@@ -149,10 +149,10 @@ uint32_t compute_buffer(int16_t *pbuf, int bufsize)
         sp_osc_compute(sp, osc, NULL, &tmp);
         //fm += tmp;
         sp_revsc_compute(sp, revsc, &tmp, &tmp, &r0, &r1);
-        //pbuf[i] = (fm * 0.8 + r0 * 0.1) * 32767;
-        //pbuf[i + 1] = (fm * 0.8  + r1 * 0.1) * 32767;
-        pbuf[i] = tmp * 62767;
-        pbuf[i+1] = tmp * 62767;
+        pbuf[i] = (fm * 0.8 + r0 * 0.1) * 32767;
+        pbuf[i + 1] = (fm * 0.8  + r1 * 0.1) * 32767;
+        //pbuf[i] = tmp * 22767;
+        //pbuf[i+1] = tmp * 22767;
     }
     return 0;
 }

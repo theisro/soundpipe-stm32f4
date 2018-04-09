@@ -43,11 +43,11 @@ int main(void)
  
   adc_configure();
   /* Green Led On: start of application */
-       
+
   /* SysTick end of count event each 10ms */
   RCC_GetClocksFreq(&RCC_Clocks);
   SysTick_Config(RCC_Clocks.HCLK_Frequency / 100);
-  
+
   WavePlayBack(I2S_AudioFreq_22k); 
   while (1);
 }
