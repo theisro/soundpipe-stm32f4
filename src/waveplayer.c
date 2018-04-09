@@ -103,13 +103,13 @@ uint32_t compute_buffer(int16_t *pbuf, int bufsize)
     for(i = 0; i < bufsize / 2; i+=2) {
         sp_osc_compute(sp, osc, NULL, &lfo);
         fm = 0;
-        for(o = 0; o < NOSCS; o++) { 
+        for(o = 0; o < NOSCS; o++) {
             tmp = 0;
             fosc[o]->indx = ((1.0 + lfo) * 0.5) * 6;
             sp_fosc_compute(sp, fosc[o], NULL, &tmp);
             fm += tmp;
         }
-      
+
         sp_revsc_compute(sp, revsc, &fm, &fm,  &r0, &r1);
         pbuf[i] = (fm * 0.8 + r0 * 0.1) * 32767;
         pbuf[i + 1] = (fm * 0.8  + r1 * 0.1) * 32767;
