@@ -186,8 +186,8 @@ uint32_t compute_drip(int16_t *pbuf, int bufsize)
         //fm += drp;
         revsc->feedback = 0.9;
         sp_revsc_compute(sp, revsc, &drp, &drp, &rev1, &rev2);
-        pbuf[i] = (drp + rev1 * 0.5) * 16000;
-        pbuf[i+1] = (drp + rev2 * 0.5) * 16000;
+        pbuf[i] = (drp * 0.8 + rev1 * 0.1) * 32767;
+        pbuf[i+1] = (drp * 0.8 + rev2 * 0.1) * 32767;
     }
     return 0;
 }
@@ -197,10 +197,10 @@ uint32_t compute_pluck(int16_t *pbuf, int bufsize)
     int i;
     SPFLOAT pluck_val = 0, met_val = 0;
     sp_metro_compute(sp, met, NULL, &met_val);
-    SPFLOAT notes[] = {60, 63, 67, 70, 74};
+    SPFLOAT notes[] = {60, 61, 62, 63, 64, 65, 66, 67};
     for (i=0; i < bufsize; i++) {
         if (met) {
-            pluck->freq = sp_midi2cps(notes[sp_rand(sp) % 5]);
+            pluck->freq = sp_midi2cps(notes[sp_rand(sp) % 8]);
             pluck->amp = 0.6;
         }
         sp_pluck_compute(sp, pluck, &met_val, &pluck_val);
